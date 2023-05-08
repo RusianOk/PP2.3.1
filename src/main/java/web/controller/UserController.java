@@ -13,8 +13,11 @@ import java.util.List;
 @Controller
 public class UserController {
 
-	@Autowired
 	private UserService userService;
+
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
 
 	@GetMapping(value = "/")
 	public String welcome() {
@@ -40,8 +43,8 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	@GetMapping(value = "users/edit/{id}")
-	public String editUser(ModelMap model, @PathVariable("id") Long id) {
+	@GetMapping(value = "users/edit")
+	public String editUser(ModelMap model, @RequestParam("id") Long id) {
 		User user = userService.getUserById(id);
 		model.addAttribute("user", user);
 		return "editUser";
@@ -59,8 +62,8 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	@GetMapping("users/{id}")
-	public String show(@PathVariable("id") Long id, ModelMap modelMap) {
+	@GetMapping("users/show")
+	public String showUserById(@RequestParam("id") Long id, ModelMap modelMap) {
 		modelMap.addAttribute("user", userService.getUserById(id));
 		return "show";
 	}
