@@ -20,7 +20,8 @@
             <td th:text="${user.getAge()}">Age</td>
 
             <td>
-                <form th:action="@{users/edit/{id}(id=${user.id})}" th:object="${user}">
+                <form th:action="@{/users/editUser}" method="get">
+                    <input type="hidden" name="id" th:value="${user.id}">
                     <button type="submit">Change</button>
                 </form>
             </td>
